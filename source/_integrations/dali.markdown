@@ -39,8 +39,7 @@ interface that is plugged directly into the Home Assistant host over USB and
 speaks the DALI protocol on the bus itself.
 
 {% note %}
-Support for emergency lighting, further diagnostics, and DALI-2 sensors and
-input devices is planned for future releases.
+Support for DALI-2 sensors and input devices is planned for future releases.
 {% endnote %}
 
 ## Supported devices
@@ -86,6 +85,13 @@ Power the DALI bus:
   - **Available for devices**: Control gear that implements the Part 253
     diagnostics memory banks.
 
+- **Emergency status and failures**
+  - **Description**: Reports the status and failure bits of self-contained
+    emergency control gear (IEC 62386-202 memory bank 208), such as battery,
+    lamp, and test failures.
+  - **Available for devices**: DALI self-contained emergency control gear
+    (device type 1).
+
 #### Lights
 
 - **Brightness**
@@ -120,6 +126,10 @@ and 206 / Part 253) such as operating times, start counters and temperatures,
 luminaire **maintenance** / rated life (memory bank 207 / Part 253), and active
 **energy** (memory bank 202 / Part 252).
 
+Self-contained emergency control gear (device type 1) additionally exposes
+**emergency** sensors such as the emergency mode, battery charge, and the
+various test durations and counters.
+
 #### Numbers
 
 Configuration entities let you adjust a control gear's **minimum level**,
@@ -136,6 +146,11 @@ Configuration entities let you adjust a control gear's **fade time** and
   - **Description**: Flash the control gear so you can locate it physically.
 - **Rescan**
   - **Description**: Trigger a new scan of the DALI bus for control gear.
+- **Emergency commands**
+  - **Description**: Start and stop the emergency function and duration tests
+    and other emergency commands on self-contained emergency control gear.
+  - **Available for devices**: DALI self-contained emergency control gear
+    (device type 1).
 
 ## Data updates
 
