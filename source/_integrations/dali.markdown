@@ -2,6 +2,7 @@
 title: DALI
 description: Instructions on how to integrate a DALI bus through a USB interface with Home Assistant.
 ha_category:
+  - Binary sensor
   - Button
   - Hub
   - Light
@@ -13,6 +14,7 @@ ha_codeowners:
 ha_domain: dali
 ha_config_flow: true
 ha_platforms:
+  - binary_sensor
   - button
   - diagnostics
   - light
@@ -75,6 +77,15 @@ Power the DALI bus:
 
 ### Entities
 
+#### Binary sensors
+
+- **Problem**
+  - **Description**: Reports failure conditions a control gear exposes in its
+    control-gear and light-source diagnostics (IEC 62386 memory banks 205 and
+    206 / DiiA Part 253), such as control-gear or light-source failures.
+  - **Available for devices**: Control gear that implements the Part 253
+    diagnostics memory banks.
+
 #### Lights
 
 - **Brightness**
@@ -102,6 +113,12 @@ memory banks, for example its GTIN, identification number, serial and batch
 number, firmware and hardware version, DALI short address, and — for devices
 that provide it — luminaire information (IEC 62386-102 memory bank 1 / DiiA
 Part 251). Most of these are disabled by default.
+
+For control gear that implements the DiiA extended memory banks, additional
+sensors expose control-gear and light-source **diagnostics** (memory banks 205
+and 206 / Part 253) such as operating times, start counters and temperatures,
+luminaire **maintenance** / rated life (memory bank 207 / Part 253), and active
+**energy** (memory bank 202 / Part 252).
 
 #### Numbers
 
