@@ -4,6 +4,7 @@ description: Instructions on how to integrate a DALI bus through a USB interface
 ha_category:
   - Binary sensor
   - Button
+  - Event
   - Hub
   - Light
   - Sensor
@@ -17,6 +18,7 @@ ha_platforms:
   - binary_sensor
   - button
   - diagnostics
+  - event
   - light
   - number
   - select
@@ -39,7 +41,7 @@ interface that is plugged directly into the Home Assistant host over USB and
 speaks the DALI protocol on the bus itself.
 
 {% note %}
-Support for DALI-2 sensors and input devices is planned for future releases.
+Support for DALI-2 Part 306 general sensors is planned for a future release.
 {% endnote %}
 
 ## Supported devices
@@ -92,6 +94,20 @@ Power the DALI bus:
   - **Available for devices**: DALI self-contained emergency control gear
     (device type 1).
 
+- **Occupancy**
+  - **Description**: Reports occupancy detected by a DALI-2 occupancy/movement
+    input device (IEC 62386-303).
+  - **Available for devices**: DALI-2 control devices with an occupancy sensor
+    instance.
+
+#### Events
+
+- **Pushbutton**
+  - **Description**: Fires events for DALI-2 pushbutton input devices
+    (IEC 62386-301), such as press, release, and long-press.
+  - **Available for devices**: DALI-2 control devices with a pushbutton
+    instance.
+
 #### Lights
 
 - **Brightness**
@@ -143,7 +159,8 @@ Configuration entities let you adjust a control gear's **fade time** and
 #### Buttons
 
 - **Identify**
-  - **Description**: Flash the control gear so you can locate it physically.
+  - **Description**: Flash a control gear or control device so you can locate it
+    physically.
 - **Rescan**
   - **Description**: Trigger a new scan of the DALI bus for control gear.
 - **Emergency commands**
@@ -169,9 +186,9 @@ external DALI bus power supply.
 ### Control gear is not addressed
 
 Control gear without a DALI short address cannot be controlled. When Home
-Assistant detects unaddressed control gear, it raises a repair issue that offers
-to assign short addresses. If two or more control gear share the same short
-address, a repair issue offers to resolve the address collision.
+Assistant detects unaddressed control gear or control devices, it raises a repair
+issue that offers to assign short addresses. If two or more control gear share
+the same short address, a repair issue offers to resolve the address collision.
 
 ## Removing the integration
 
