@@ -2,8 +2,10 @@
 title: DALI
 description: Instructions on how to integrate a DALI bus through a USB interface with Home Assistant.
 ha_category:
+  - Button
   - Hub
   - Light
+  - Sensor
 ha_release: 2026.11
 ha_iot_class: Local Polling
 ha_codeowners:
@@ -11,10 +13,14 @@ ha_codeowners:
 ha_domain: dali
 ha_config_flow: true
 ha_platforms:
+  - button
   - diagnostics
   - light
+  - number
+  - select
+  - sensor
 ha_integration_type: hub
-ha_quality_scale: silver
+ha_quality_scale: gold
 ---
 
 The **DALI** {% term integration %} connects Home Assistant directly to a
@@ -31,10 +37,8 @@ interface that is plugged directly into the Home Assistant host over USB and
 speaks the DALI protocol on the bus itself.
 
 {% note %}
-This is the first release of the DALI integration. It supports dimmable LED
-control gear as lights. Support for color control gear, emergency lighting,
-diagnostics, and DALI-2 sensors and input devices is planned for future
-releases.
+Support for color control gear, emergency lighting, further diagnostics, and
+DALI-2 sensors and input devices is planned for future releases.
 {% endnote %}
 
 ## Supported devices
@@ -80,6 +84,31 @@ Power the DALI bus:
     and the DALI arc-power level.
   - **Available for devices**: DALI control gear of device type 6.
 
+#### Sensors
+
+Diagnostic sensors expose the identification data a control gear reports in its
+memory banks, for example its GTIN, identification number, serial and batch
+number, firmware and hardware version, DALI short address, and — for devices
+that provide it — luminaire information (IEC 62386-102 memory bank 1 / DiiA
+Part 251). Most of these are disabled by default.
+
+#### Numbers
+
+Configuration entities let you adjust a control gear's **minimum level**,
+**maximum level**, **system failure level**, and **extended fade time**.
+
+#### Selects
+
+Configuration entities let you adjust a control gear's **fade time** and
+**fade rate**.
+
+#### Buttons
+
+- **Identify**
+  - **Description**: Flash the control gear so you can locate it physically.
+- **Rescan**
+  - **Description**: Trigger a new scan of the DALI bus for control gear.
+
 ## Data updates
 
 The integration {% term polling polls %} the DALI bus every 30 seconds to update
@@ -93,6 +122,13 @@ If the interface reports that the DALI bus is unpowered or overloaded, Home
 Assistant raises a repair issue that offers to power the bus from the interface
 (when the interface supports it). If the bus is powered externally, check the
 external DALI bus power supply.
+
+### Control gear is not addressed
+
+Control gear without a DALI short address cannot be controlled. When Home
+Assistant detects unaddressed control gear, it raises a repair issue that offers
+to assign short addresses. If two or more control gear share the same short
+address, a repair issue offers to resolve the address collision.
 
 ## Removing the integration
 
