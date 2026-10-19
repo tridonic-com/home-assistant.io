@@ -37,8 +37,8 @@ interface that is plugged directly into the Home Assistant host over USB and
 speaks the DALI protocol on the bus itself.
 
 {% note %}
-Support for color control gear, emergency lighting, further diagnostics, and
-DALI-2 sensors and input devices is planned for future releases.
+Support for emergency lighting, further diagnostics, and DALI-2 sensors and
+input devices is planned for future releases.
 {% endnote %}
 
 ## Supported devices
@@ -83,6 +83,17 @@ Power the DALI bus:
     (logarithmic or linear) when translating between Home Assistant brightness
     and the DALI arc-power level.
   - **Available for devices**: DALI control gear of device type 6.
+
+- **Color temperature**
+  - **Description**: Set the color temperature of color control gear, within the
+    gear's configured (or physical) warmest/coolest limits.
+  - **Available for devices**: DALI color control gear of device type 8
+    (IEC 62386-209) that support tunable white.
+
+- **XY color**
+  - **Description**: Set the CIE xy color of color control gear.
+  - **Available for devices**: DALI color control gear of device type 8
+    (IEC 62386-209) that support xy color.
 
 #### Sensors
 
